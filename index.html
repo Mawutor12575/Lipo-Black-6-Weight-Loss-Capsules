@@ -190,15 +190,103 @@
     .goal-btn.active { border-color: var(--red); color: var(--text-main); background: rgba(227,18,43,0.12); }
 
     .testi-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
-    .testi-card { background: var(--charcoal); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+    .testi-card { background: var(--charcoal); border: 1px solid var(--line); border-radius: 14px; padding: 20px; position: relative; }
     .testi-card .head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 10px; flex-wrap: wrap; }
     .testi-card h3 { font-family: 'Work Sans'; text-transform: none; font-size: 16px; font-weight: 700; color: var(--text-main); }
     .testi-card .loc { font-size: 12px; color: var(--red); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
     .testi-quote { color: var(--silver); font-size: 14px; margin-bottom: 12px; }
-    .testi-media { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-    .testi-media .m { aspect-ratio: 1/1; background: var(--black); border-radius: 8px; overflow: hidden; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
+    .testi-media { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 12px; }
+    .testi-media .m { aspect-ratio: 1/1; background: var(--black); border-radius: 8px; overflow: hidden; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .testi-media img, .testi-media video { width: 100%; height: 100%; object-fit: cover; }
     .testi-media .placeholder { color: var(--silver); font-size: 10.5px; text-align: center; padding: 6px; }
+
+    .view-media-btn {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text-main);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+      width: 100%;
+      justify-content: center;
+    }
+    .view-media-btn:hover { background: rgba(227,18,43,0.1); }
+
+    /* Carousel Modal */
+    .carousel-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .carousel-modal.active { display: flex; }
+    .carousel-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 38px;
+      color: #fff;
+      cursor: pointer;
+      z-index: 10;
+      background: none;
+      border: none;
+    }
+    .carousel-container {
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .carousel-slide {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .carousel-slide img, .carousel-slide video {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      font-size: 30px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .carousel-arrow.left { left: 10px; }
+    .carousel-arrow.right { right: 10px; }
+    .carousel-counter {
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      margin-top: 15px;
+    }
 
     .faq-item { border-bottom: 1px solid var(--line); }
     .faq-q { width: 100%; text-align: left; background: none; border: none; color: var(--text-main); font-size: 15.5px; font-weight: 700; padding: 20px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
@@ -413,9 +501,10 @@
       <div class="section-head center">
         <span class="kicker">Real Customers</span>
         <h2>⭐ Testimonies & Feedback</h2>
-        <p>See what customers across Ghana are saying — photos and videos from real orders.</p>
+        <p>See what customers across Ghana are saying — photos and videos from real orders. Click <strong>View Photos</strong> on any testimony to see them fullscreen.</p>
       </div>
       <div class="testi-grid" id="testiGrid">
+        <!-- Testimonial 1 -->
         <div class="testi-card">
           <div class="head"><h3>Testimony of Ms. Kumi</h3><span class="loc">Kumasi</span></div>
           <p class="testi-quote">"Add the customer's message here, or leave this line out."</p>
@@ -424,7 +513,9 @@
             <div class="m"><img src="images/testimonials/kumi-2.jpg" alt="Testimony image 2" onerror="this.parentElement.innerHTML='<span class=placeholder>Add image src</span>'"></div>
             <div class="m"><video src="images/testimonials/kumi-3.mp4" controls onerror="this.parentElement.innerHTML='<span class=placeholder>Add video src</span>'"></video></div>
           </div>
+          <button class="view-media-btn">🔍 View Photos</button>
         </div>
+        <!-- Testimonial 2 -->
         <div class="testi-card">
           <div class="head"><h3>Testimony of Mr. Owusu</h3><span class="loc">Accra</span></div>
           <p class="testi-quote">"Add the customer's message here, or leave this line out."</p>
@@ -432,10 +523,22 @@
             <div class="m"><img src="images/testimonials/owusu-1.jpg" alt="Testimony image 1" onerror="this.parentElement.innerHTML='<span class=placeholder>Add image src</span>'"></div>
             <div class="m"><img src="images/testimonials/owusu-2.jpg" alt="Testimony image 2" onerror="this.parentElement.innerHTML='<span class=placeholder>Add image src</span>'"></div>
           </div>
+          <button class="view-media-btn">🔍 View Photos</button>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Carousel Modal -->
+  <div class="carousel-modal" id="carouselModal">
+    <button class="carousel-close" id="carouselClose">&times;</button>
+    <div class="carousel-container" id="carouselContainer">
+      <button class="carousel-arrow left" id="carouselPrev">‹</button>
+      <div class="carousel-slide" id="carouselSlide"></div>
+      <button class="carousel-arrow right" id="carouselNext">›</button>
+    </div>
+    <div class="carousel-counter" id="carouselCounter"></div>
+  </div>
 
   <div class="divider"></div>
 
@@ -551,215 +654,158 @@
   <script>
     (function() {
       // ---------- Anti-copy protection ----------
-      document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        return false;
-      });
-
+      document.addEventListener('contextmenu', e => e.preventDefault());
       document.addEventListener('keydown', function(e) {
         const target = e.target;
         const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT' || target.isContentEditable;
-
-        // Block view source, save, dev tools shortcuts completely
-        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
-          e.preventDefault();
-          return false;
-        }
-        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c' || e.key === 'J' || e.key === 'j'))) {
-          e.preventDefault();
-          return false;
-        }
-        // Block select all and copy/cut only when not inside an input/textarea
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c' || e.key === 'J' || e.key === 'j'))) { e.preventDefault(); return false; }
         if (!isInput) {
-          if ((e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'x' || e.key === 'X')) || (e.ctrlKey && e.key === 'a' && e.key === 'A')) {
-            e.preventDefault();
-            return false;
-          }
+          if ((e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'x' || e.key === 'X')) || (e.ctrlKey && e.key === 'a')) { e.preventDefault(); return false; }
         }
       });
-
-      // Disable drag (might help prevent some copy methods)
-      document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+      document.addEventListener('dragstart', e => e.preventDefault());
 
       // ---------- Theme toggle ----------
       const html = document.documentElement;
       const themeToggle = document.getElementById('themeToggle');
-
       function applyTheme(t) {
         html.setAttribute('data-theme', t);
         themeToggle.textContent = t === 'light' ? '☀️' : '🌙';
         try { localStorage.setItem('lipo6-theme', t); } catch (e) {}
       }
-
       let savedTheme = 'dark';
       try { savedTheme = localStorage.getItem('lipo6-theme') || 'dark'; } catch (e) {}
       applyTheme(savedTheme);
-      themeToggle.addEventListener('click', function() {
-        applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-      });
+      themeToggle.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 
       // ---------- Mobile menu ----------
       const menuToggle = document.getElementById('menuToggle');
       const mobileMenu = document.getElementById('mobileMenu');
-      menuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('open');
-      });
-      mobileMenu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() {
-          mobileMenu.classList.remove('open');
-        });
-      });
+      menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+      mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
 
       // ---------- FAQ accordion ----------
-      document.querySelectorAll('.faq-item').forEach(function(item) {
+      document.querySelectorAll('.faq-item').forEach(item => {
         const q = item.querySelector('.faq-q');
         const a = item.querySelector('.faq-a');
-        q.addEventListener('click', function() {
+        q.addEventListener('click', () => {
           const isOpen = item.classList.contains('open');
-          document.querySelectorAll('.faq-item').forEach(function(i) {
-            i.classList.remove('open');
-            i.querySelector('.faq-a').style.maxHeight = null;
-          });
-          if (!isOpen) {
-            item.classList.add('open');
-            a.style.maxHeight = a.scrollHeight + 'px';
-          }
+          document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = null; });
+          if (!isOpen) { item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
         });
       });
 
       // ---------- Bottle calculator ----------
       const scale = document.getElementById('scale');
       const ranges = [
-        { label: 'Under 100 kg', bottles: 1 },
-        { label: '100 – 120 kg', bottles: 2 },
-        { label: '120 – 140 kg', bottles: 3 },
-        { label: '140 – 160 kg', bottles: 4 },
-        { label: '160 kg+', bottles: 5 }
+        { label: 'Under 100 kg', bottles: 1 }, { label: '100 – 120 kg', bottles: 2 }, { label: '120 – 140 kg', bottles: 3 }, { label: '140 – 160 kg', bottles: 4 }, { label: '160 kg+', bottles: 5 }
       ];
-      ranges.forEach(function(r) {
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        bar.style.height = (30 + r.bottles * 14) + 'px';
-        scale.appendChild(bar);
-      });
-
-      const weightSlider = document.getElementById('weightSlider');
-      const weightLabel = document.getElementById('weightLabel');
-      const recBottles = document.getElementById('recBottles');
-      const recDesc = document.getElementById('recDesc');
-      const recAddon = document.getElementById('recAddon');
-      const calcCta = document.getElementById('calcCta');
-      const quantityInput = document.getElementById('quantity');
-      const amountVal = document.getElementById('amountVal');
+      ranges.forEach(r => { const bar = document.createElement('div'); bar.className = 'bar'; bar.style.height = (30 + r.bottles * 14) + 'px'; scale.appendChild(bar); });
+      const weightSlider = document.getElementById('weightSlider'), weightLabel = document.getElementById('weightLabel'), recBottles = document.getElementById('recBottles'), recDesc = document.getElementById('recDesc'), recAddon = document.getElementById('recAddon'), calcCta = document.getElementById('calcCta'), quantityInput = document.getElementById('quantity'), amountVal = document.getElementById('amountVal');
       const PRICE_PER_BOTTLE = 350;
       let monthsGoal = 1;
 
-      function updateScaleBars() {
-        const bars = scale.querySelectorAll('.bar');
-        bars.forEach(function(b, i) {
-          b.classList.toggle('active', i <= Number(weightSlider.value));
-        });
-      }
-
-      function updateAmount() {
-        let qty = parseInt(quantityInput.value, 10);
-        if (isNaN(qty) || qty < 1) qty = 1;
-        amountVal.textContent = (qty * PRICE_PER_BOTTLE).toLocaleString();
-      }
-
+      function updateScaleBars() { scale.querySelectorAll('.bar').forEach((b,i) => b.classList.toggle('active', i <= Number(weightSlider.value))); }
+      function updateAmount() { let qty = parseInt(quantityInput.value,10); if (isNaN(qty)||qty<1) qty=1; amountVal.textContent = (qty*PRICE_PER_BOTTLE).toLocaleString(); }
       function calcRecommendation() {
-        const idx = Number(weightSlider.value);
-        const range = ranges[idx];
-        weightLabel.textContent = range.label;
-        updateScaleBars();
+        const idx = Number(weightSlider.value), range = ranges[idx];
+        weightLabel.textContent = range.label; updateScaleBars();
         const bottles = Math.max(1, range.bottles * monthsGoal);
-        recBottles.innerHTML = bottles + ' <span>' + (bottles === 1 ? 'Bottle' : 'Bottles') + '</span>';
-        recDesc.textContent = 'Based on 1 capsule morning and evening, this covers about a ' + monthsGoal + '-month course for your weight range.';
-        recAddon.textContent = idx >= 2 ? 'Tip: heavier weight ranges may need extra bottles to complete a full course.' : 'Tip: pairing this with a balanced diet and regular exercise gets the best results.';
-        calcCta.textContent = 'Order ' + bottles + ' Bottle' + (bottles > 1 ? 's' : '') + ' →';
-        quantityInput.value = bottles;
-        updateAmount();
+        recBottles.innerHTML = bottles + ' <span>' + (bottles===1?'Bottle':'Bottles') + '</span>';
+        recDesc.textContent = 'Based on 1 capsule morning and evening, this covers about a ' + monthsGoal + '-month course.';
+        recAddon.textContent = idx>=2 ? 'Tip: heavier weight ranges may need extra bottles.' : 'Tip: pairing with diet and exercise gets best results.';
+        calcCta.textContent = 'Order ' + bottles + ' Bottle' + (bottles>1?'s':'') + ' →';
+        quantityInput.value = bottles; updateAmount();
       }
-
       weightSlider.addEventListener('input', calcRecommendation);
-
-      document.querySelectorAll('.goal-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.goal-btn').forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          monthsGoal = Number(btn.dataset.months);
-          calcRecommendation();
-        });
-      });
-
+      document.querySelectorAll('.goal-btn').forEach(btn => btn.addEventListener('click', function() {
+        document.querySelectorAll('.goal-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active'); monthsGoal = Number(this.dataset.months); calcRecommendation();
+      }));
       calcRecommendation();
-
       quantityInput.addEventListener('input', updateAmount);
-
-      document.getElementById('qtyMinus').addEventListener('click', function(e) {
-        e.preventDefault();
-        let qty = parseInt(quantityInput.value, 10) || 1;
-        if (qty > 1) {
-          quantityInput.value = qty - 1;
-          updateAmount();
-        }
-      });
-
-      document.getElementById('qtyPlus').addEventListener('click', function(e) {
-        e.preventDefault();
-        let qty = parseInt(quantityInput.value, 10) || 1;
-        quantityInput.value = qty + 1;
-        updateAmount();
-      });
-
+      document.getElementById('qtyMinus').addEventListener('click', e => { e.preventDefault(); let q = parseInt(quantityInput.value,10)||1; if(q>1) { quantityInput.value = q-1; updateAmount(); } });
+      document.getElementById('qtyPlus').addEventListener('click', e => { e.preventDefault(); let q = parseInt(quantityInput.value,10)||1; quantityInput.value = q+1; updateAmount(); });
       updateAmount();
 
       // ---------- WhatsApp order ----------
       const WHATSAPP_NUMBER = '233245939580';
       const waBtn = document.getElementById('waBtn');
-
-      function getGreeting() {
-        const h = new Date().getHours();
-        if (h >= 5 && h < 12) return 'Good Morning';
-        if (h >= 12 && h < 17) return 'Good Afternoon';
-        if (h >= 17 && h < 21) return 'Good Evening';
-        return 'Hello';
-      }
-
-      function validateField(id, condition) {
-        const errEl = document.getElementById('err-' + id);
-        const inputEl = document.getElementById(id);
-        if (!condition) {
-          errEl.style.display = 'block';
-          if (inputEl) inputEl.style.borderColor = 'var(--red)';
-          return false;
-        }
-        errEl.style.display = 'none';
-        if (inputEl) inputEl.style.borderColor = 'var(--line)';
-        return true;
-      }
-
+      function getGreeting() { const h = new Date().getHours(); if (h>=5 && h<12) return 'Good Morning'; if (h>=12 && h<17) return 'Good Afternoon'; if (h>=17 && h<21) return 'Good Evening'; return 'Hello'; }
+      function validateField(id, condition) { const err = document.getElementById('err-'+id), inp = document.getElementById(id); if(!condition) { err.style.display='block'; if(inp) inp.style.borderColor='var(--red)'; return false; } err.style.display='none'; if(inp) inp.style.borderColor='var(--line)'; return true; }
       waBtn.addEventListener('click', function(e) {
         e.preventDefault();
+        const name = document.getElementById('name').value.trim(), number = document.getElementById('number').value.trim(), location = document.getElementById('location').value.trim(), quantity = parseInt(quantityInput.value,10)||1, amount = quantity*PRICE_PER_BOTTLE;
+        if (!(validateField('name', name.length>1) && validateField('number', number.length>=9) && validateField('location', location.length>1) && validateField('quantity', quantity>=1))) return;
+        const message = `Hi. ${getGreeting()}. I will like to purchase the weight loss product (Lipo-6 Black Ultra Concentrate). My details are as follows:\n\nName: ${name}\nNumber: ${number}\nLocation: ${location}\nQuantity: ${quantity} Bottle(s)\nAmount: GHC ${amount.toLocaleString()}`;
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+      });
 
-        const name = document.getElementById('name').value.trim();
-        const number = document.getElementById('number').value.trim();
-        const location = document.getElementById('location').value.trim();
-        const quantity = parseInt(quantityInput.value, 10) || 1;
-        const amount = quantity * PRICE_PER_BOTTLE;
+      // ---------- Testimonial Carousel ----------
+      const modal = document.getElementById('carouselModal');
+      const slideDiv = document.getElementById('carouselSlide');
+      const counter = document.getElementById('carouselCounter');
+      const prevBtn = document.getElementById('carouselPrev');
+      const nextBtn = document.getElementById('carouselNext');
+      const closeBtn = document.getElementById('carouselClose');
+      let currentMedia = [], currentIndex = 0;
 
-        const validName = validateField('name', name.length > 1);
-        const validNumber = validateField('number', number.length >= 9);
-        const validLocation = validateField('location', location.length > 1);
-        const validQty = validateField('quantity', quantity >= 1);
+      function closeCarousel() { modal.classList.remove('active'); currentMedia = []; currentIndex = 0; }
+      function showSlide(index) {
+        if (!currentMedia.length) return;
+        currentIndex = (index + currentMedia.length) % currentMedia.length;
+        slideDiv.innerHTML = '';
+        const item = currentMedia[currentIndex];
+        if (item.tagName === 'IMG') {
+          const img = document.createElement('img'); img.src = item.src; img.alt = 'testimonial'; slideDiv.appendChild(img);
+        } else if (item.tagName === 'VIDEO') {
+          const video = document.createElement('video'); video.src = item.src; video.controls = true; video.setAttribute('playsinline', ''); slideDiv.appendChild(video);
+        }
+        counter.textContent = `${currentIndex+1} / ${currentMedia.length}`;
+      }
 
-        if (!(validName && validNumber && validLocation && validQty)) return;
+      function openCarousel(mediaElements) {
+        currentMedia = Array.from(mediaElements).filter(el => el.tagName === 'IMG' || el.tagName === 'VIDEO');
+        if (!currentMedia.length) return;
+        currentIndex = 0;
+        showSlide(0);
+        modal.classList.add('active');
+      }
 
-        const greeting = getGreeting();
-        const message = 'Hi. ' + greeting + '. I will like to purchase the weight loss product (Lipo-6 Black Ultra Concentrate). My details are as follows:\n\nName: ' + name + '\nNumber: ' + number + '\nLocation: ' + location + '\nQuantity: ' + quantity + ' Bottle(s)\nAmount: GHC ' + amount.toLocaleString();
+      // Attach event listeners to all "View Photos" buttons
+      document.querySelectorAll('.view-media-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const card = this.closest('.testi-card');
+          if (!card) return;
+          const mediaItems = card.querySelectorAll('.testi-media img, .testi-media video');
+          openCarousel(mediaItems);
+        });
+      });
 
-        const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
-        window.open(url, '_blank');
+      prevBtn.addEventListener('click', () => { if (currentMedia.length) showSlide(currentIndex - 1); });
+      nextBtn.addEventListener('click', () => { if (currentMedia.length) showSlide(currentIndex + 1); });
+      closeBtn.addEventListener('click', closeCarousel);
+      modal.addEventListener('click', function(e) { if (e.target === modal) closeCarousel(); });
+
+      // Touch swipe support
+      let touchStartX = 0;
+      modal.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; });
+      modal.addEventListener('touchend', function(e) {
+        if (!currentMedia.length) return;
+        const diff = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) showSlide(currentIndex - 1);
+          else showSlide(currentIndex + 1);
+        }
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); showSlide(currentIndex - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); showSlide(currentIndex + 1); }
+        if (e.key === 'Escape') { closeCarousel(); }
       });
 
     })();
